@@ -8,8 +8,7 @@ import org.junit.jupiter.api.Test;
 class CalculatorTests {
 
 	@Test
-	@DisplayName("1 + 1 = 2")
-	void addsTwoNumbers() {
+	void givenAddWhenInputsBoth1ThenReturn2() {
 		// arrange
 		int numberA = 1;
 		int numberB = 1;
@@ -23,7 +22,7 @@ class CalculatorTests {
 	}
 
 	@Test
-	@DisplayName("1 - 1 = 0")
+	@DisplayName("GIVEN subtract method WHEN first operator is 1 AND second operator is 1 THEN should return 0")
 	void subtractTwoNumbers() {
 		// arrange
 		int numberA = 1;
