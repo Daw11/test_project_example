@@ -2,6 +2,7 @@ package it.euris.ires;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -9,13 +10,19 @@ import org.junit.jupiter.params.provider.CsvSource;
 
 class CalculatorTests {
 
+	Calculator calculator;
+
+	@BeforeEach
+	void setUp() {
+		this.calculator = new Calculator();
+	}
+
 	@Test
 	void givenAddWhenInputsBoth1ThenReturn2() {
 		// arrange
 		int numberA = 1;
 		int numberB = 1;
 		int expectedResult = 2;
-		Calculator calculator = new Calculator();
 		// act
 		int result = calculator.add(numberA, numberB);
 		// assert
@@ -30,7 +37,6 @@ class CalculatorTests {
 		int numberA = 1;
 		int numberB = 1;
 		int expectedResult = 0;
-		Calculator calculator = new Calculator();
 		// act
 		int result = calculator.subtract(numberA, numberB);
 		// assert
@@ -46,9 +52,9 @@ class CalculatorTests {
 			Integer.MAX_VALUE + ", "+ Integer.MAX_VALUE + ", -2"
 	})
 	void addWithBvaValues(int first, int second, int expectedResult) {
-		Calculator calculator = new Calculator();
-		assertEquals(expectedResult, calculator.add(first, second),
-				() -> first + " + " + second + " should equal " + expectedResult);
+		int result = calculator.add(first, second);
+
+		assertEquals(expectedResult, result, () -> first + " + " + second + " should equal " + expectedResult);
 	}
 
 }
