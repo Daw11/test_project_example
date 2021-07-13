@@ -9,5 +9,6 @@ public class PaymentRequest {
 
   private int amount;
   private String pan;
+  private int feeRate;
 
 }

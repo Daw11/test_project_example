@@ -14,7 +14,8 @@ public class PaymentServiceTest {
   @BeforeEach
   void setUp() {
     ILogger logger = new LoggerDummy();
-    paymentService = new PaymentService(logger);
+    IOperatorRate operatorRate = new OperatorRateStub(10);
+    paymentService = new PaymentService(logger, operatorRate);
   }
 
   @Test
@@ -25,11 +26,11 @@ public class PaymentServiceTest {
     items.add(item);
     Sale sale = new Sale(customer, items);
     CreditCard creditCard = new CreditCard(customer, "1");
-    PaymentRequest expectedResult = new PaymentRequest(1000, "1");
+    PaymentRequest expectedResult = new PaymentRequest(1000, "1", 10);
 
     PaymentRequest result = paymentService.createPaymentRequest(sale, creditCard);
 
-    assertThat(expectedResult).isEqualTo(result);
+    assertThat(result).isEqualTo(expectedResult);
   }
 
 }
