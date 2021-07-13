@@ -13,14 +13,15 @@ public class PaymentServiceTest {
 
   ILogger logger;
   IOperatorRate operatorRate;
-  PaymentEmailSenderMock emailSender;
+  PaymentEmailSenderMock emailSenderMock;
+  PaymentEmailSpy emailSenderSpy;
 
   @BeforeEach
   void setUp() {
     logger = new LoggerDummy();
     operatorRate = new OperatorRateStub(10);
-    emailSender = new PaymentEmailSenderMock();
-    paymentService = new PaymentService(logger, operatorRate, emailSender);
+    emailSenderMock = new PaymentEmailSenderMock();
+    emailSenderSpy = new PaymentEmailSpy();
   }
 
   @Test
@@ -32,10 +33,12 @@ public class PaymentServiceTest {
     Sale sale = new Sale(customer, items);
     CreditCard creditCard = new CreditCard(customer, "1");
     PaymentRequest expectedResult = new PaymentRequest(1000, "1", 100);
+    paymentService = new PaymentService(logger, operatorRate, emailSenderSpy);
 
     PaymentRequest result = paymentService.createPaymentRequest(sale, creditCard);
 
     assertThat(result).isEqualTo(expectedResult);
+    assertThat(emailSenderSpy.timesCalled()).isEqualTo(0);
   }
 
   @Test
@@ -47,12 +50,13 @@ public class PaymentServiceTest {
     Sale sale = new Sale(customer, items);
     CreditCard creditCard = new CreditCard(customer, "1");
     PaymentRequest expectedResult = new PaymentRequest(1001, "1", 100);
-    emailSender.expect(expectedResult);
+    emailSenderMock.expect(expectedResult);
+    paymentService = new PaymentService(logger, operatorRate, emailSenderMock);
 
     PaymentRequest result = paymentService.createPaymentRequest(sale, creditCard);
 
     assertThat(result).isEqualTo(expectedResult);
-    emailSender.verify();
+    emailSenderMock.verify();
   }
 
 }
