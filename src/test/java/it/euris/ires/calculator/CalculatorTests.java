@@ -1,7 +1,8 @@
-package it.euris.ires;
+package it.euris.ires.calculator;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import it.euris.ires.calculator.Calculator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

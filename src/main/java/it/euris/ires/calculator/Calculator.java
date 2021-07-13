@@ -1,4 +1,4 @@
-package it.euris.ires;
+package it.euris.ires.calculator;
 
 public class Calculator {
 
