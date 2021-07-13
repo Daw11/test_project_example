@@ -10,4 +10,11 @@ public class Calculator {
 		return a - b;
 	}
 
+	public int multiplication(int operatorA, int operatorB) {
+		return operatorA * operatorB;
+	}
+
+	public int division(int operatorA, int operatorB) {
+		return operatorA / operatorB;
+	}
 }
